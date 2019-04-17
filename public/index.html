@@ -19,15 +19,57 @@
         </form>
 
         <div class="imageBoard">
-            <div v-for="image in images" :key="image.id" class="imageBlock">
+            <div v-for="image in images" :key="image.id" class="imageBlock" @click="openUp(image.id)">
                 <img :src="image.url" />
                 <p>
                     {{ image.title }}
                 </p>
             </div>
         </div>
+
+        <opened v-if="showingImage" :id="showingImage" @closing="closeImage"></opened>
     </div>
 
+    <script type="text/x-template" id="imagePopUp">
+        <div class="popUp">
+            <div class="background"></div>
+
+            <div class="popContent">
+                <div class="imageField">
+                    <p class="closeX" @click="clickAway">
+                        X
+                    </p>
+                    <img :src="imageDetails.url" class="bigImage"/>
+                    <h2>
+                        {{ imageDetails.title }}
+                    </h2>
+                    <p>
+                        {{ imageDetails.description }}
+                    </p>
+                </div>
+
+                <div class="commentSection">
+                    <form>
+                        <input type="text" v-model="commentInput.comment" name="comment" placeholder="Comment"/>
+                        <input type="text" v-model="commentInput.username" name="username" placeholder="username" />
+                        <button @click.stop.prevent="postComment">Post</button>
+                    </form>
+                    <div v-for="text in comments" class="comment">
+                        <p>
+                            {{ text.comment }}
+                        </p>
+                        <p>
+                            {{ text.username }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </script>
+
+    <script src="js/popup.js"></script>
     <script src="js/script.js"></script>
+
 </body>
 </html>

@@ -21,7 +21,7 @@ exports.upload = function(req, res, next) {
     const s3Request = client.put(req.file.filename, {
         "Content-Type": req.file.mimetype,
         "Content-Length": req.file.size,
-        "x-amz-act": "public-read"
+        "x-amz-acl": "public-read"
     });
 
     const stream = fs.createReadStream(req.file.path);

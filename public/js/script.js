@@ -3,7 +3,6 @@ new Vue({
     mounted: function() {
         var self = this;
         axios.get("/board").then(function(resp) {
-            console.log(resp.data);
             self.images = resp.data;
         });
     },
@@ -22,6 +21,13 @@ new Vue({
             axios.post("/uploading", formData).then(function(response) {
                 self.images.unshift(response.data);
             });
+        },
+        openUp: function(id) {
+            this.showingImage = id;
+        },
+        closeImage: function() {
+            this.showingImage = null;
+            console.log(this.showingImage);
         }
     },
     data: {
@@ -31,6 +37,7 @@ new Vue({
             description: "",
             username: "",
             file: null
-        }
+        },
+        showingImage: null
     }
 });

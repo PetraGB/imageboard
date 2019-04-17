@@ -1,0 +1,7 @@
+CREATE TABLE comments(
+    id SERIAL PRIMARY KEY,
+    comment VARCHAR(750) NOT NULL,
+    username VARCHAR(150) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    image_id INTEGER REFERENCES images(id) ON DELETE CASCADE
+);

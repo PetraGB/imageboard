@@ -15,7 +15,29 @@ function addImage(url, username, title, description) {
     return db.query(q, params);
 }
 
+function getSingleImage(id) {
+    q = "SELECT * FROM images WHERE id=$1;";
+    params = [id];
+    return db.query(q, params);
+}
+
+function getComments(image_id) {
+    q = "SELECT * FROM comments WHERE image_id=$1;";
+    params = [image_id];
+    return db.query(q, params);
+}
+
+function addComment(comment, username, image_id) {
+    q =
+        "INSERT INTO comments (comment, username, image_id) VALUES ($1, $2, $3);";
+    params = [comment, username, image_id];
+    return db.query(q, params);
+}
+
 module.exports = {
     getImages,
-    addImage
+    addImage,
+    getSingleImage,
+    getComments,
+    addComment
 };

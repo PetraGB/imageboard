@@ -47,6 +47,16 @@ app.get("/board", (req, res) => {
         });
 });
 
+app.get("/more/:lastId", (req, res) => {
+    db.getMoreImages(req.params.lastId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
 app.post("/uploading", uploader.single("file"), s3.upload, (req, res) => {
     const url = config.s3Url + req.file.filename;
     const username = req.body.username;

@@ -28,8 +28,10 @@
                     </p>
                 </a>
             </div>
-
+    
         </div>
+
+        <button v-if="stillMore" @click.stop.prevent="getMore">More</button>
 
         <opened v-if="showingImage" :id="showingImage" @closing="closeImage"></opened>
     </div>

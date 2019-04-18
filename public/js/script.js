@@ -26,8 +26,22 @@ new Vue({
                 self.images.unshift(response.data);
             });
         },
-        openUp: function(id) {
-            this.showingImage = id;
+        getMore: function() {
+            var self = this;
+            var lastId = self.images[self.images.length - 1].id;
+
+            axios.get("/more/" + lastId).then(function(newImages) {
+                for (var i = 0; i < newImages.data.length; i++) {
+                    self.images.push(newImages.data[i]);
+                }
+
+                if (
+                    self.images[self.images.length - 1].id ==
+                    newImages.data[0].lowest
+                ) {
+                    self.stillMore = false;
+                }
+            });
         },
         closeImage: function() {
             this.showingImage = null;
@@ -36,6 +50,7 @@ new Vue({
     },
     data: {
         images: [],
+        stillMore: true,
         form: {
             title: "",
             description: "",

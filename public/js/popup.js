@@ -1,13 +1,30 @@
+function getImageById(self) {
+    if (!isNaN(self.id)) {
+        axios.get("/singleimage/" + self.id).then(function(res) {
+            if (!res.data.imageDetails) {
+                self.$emit("closing");
+            }
+            self.imageDetails = res.data.imageDetails;
+            self.comments = res.data.comments;
+
+            console.log(res.data);
+        });
+    } else {
+        self.$emit("closing");
+    }
+}
+
 Vue.component("opened", {
     template: "#imagePopUp",
     mounted: function() {
         var self = this;
-
-        axios.get("/singleimage/" + self.id).then(function(res) {
-            self.imageDetails = res.data.imageDetails;
-
-            self.comments = res.data.comments;
-        });
+        getImageById(self);
+    },
+    watch: {
+        id: function() {
+            var self = this;
+            getImageById(self);
+        }
     },
     data: function() {
         return {
@@ -36,7 +53,6 @@ Vue.component("opened", {
                     })
                     .then(function(response) {
                         self.comments.push(response.data);
-                        console.log(self.comments);
                     });
             } else {
                 console.log("No comment here!");

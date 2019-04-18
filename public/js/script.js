@@ -5,6 +5,10 @@ new Vue({
         axios.get("/board").then(function(resp) {
             self.images = resp.data;
         });
+
+        window.addEventListener("hashchange", function() {
+            self.showingImage = location.hash.slice(1);
+        });
     },
     methods: {
         handleFileChange: function(e) {
@@ -27,7 +31,7 @@ new Vue({
         },
         closeImage: function() {
             this.showingImage = null;
-            console.log(this.showingImage);
+            location.hash = "";
         }
     },
     data: {
@@ -38,6 +42,6 @@ new Vue({
             username: "",
             file: null
         },
-        showingImage: null
+        showingImage: location.hash.slice(1) || 0
     }
 });

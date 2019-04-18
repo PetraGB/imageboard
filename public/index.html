@@ -19,12 +19,16 @@
         </form>
 
         <div class="imageBoard">
-            <div v-for="image in images" :key="image.id" class="imageBlock" @click="openUp(image.id)">
-                <img :src="image.url" />
-                <p>
-                    {{ image.title }}
-                </p>
+
+            <div v-for="image in images" :key="image.id" class="imageBlock">
+                <a :href="'#' + image.id">
+                    <img :src="image.url" />
+                    <p>
+                        {{ image.title }}
+                    </p>
+                </a>
             </div>
+
         </div>
 
         <opened v-if="showingImage" :id="showingImage" @closing="closeImage"></opened>

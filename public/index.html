@@ -28,7 +28,7 @@
                     </p>
                 </a>
             </div>
-    
+
         </div>
 
         <button v-if="stillMore" @click.stop.prevent="getMore">More</button>
@@ -38,20 +38,14 @@
 
     <script type="text/x-template" id="imagePopUp">
         <div class="popUp">
-            <div class="background"></div>
+            <!-- <div class="background"></div> -->
 
             <div class="popContent">
                 <div class="imageField">
-                    <p class="closeX" @click="clickAway">
-                        X
-                    </p>
+                    <p class="closeX" @click="clickAway">X</p>
                     <img :src="imageDetails.url" class="bigImage"/>
-                    <h2>
-                        {{ imageDetails.title }}
-                    </h2>
-                    <p>
-                        {{ imageDetails.description }}
-                    </p>
+                    <h2>{{ imageDetails.title }}</h2>
+                    <p>{{ imageDetails.description }}</p>
                 </div>
 
                 <div class="commentSection">

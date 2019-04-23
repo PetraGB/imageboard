@@ -63,7 +63,8 @@ app.post("/uploading", uploader.single("file"), s3.upload, (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
 
-    db.addImage(url, username, title, description).then(id => {
+    db.addImage(url, username, title, description).then(idData => {
+        let id = idData.rows[0].id;
         res.json({ id, url, username, title, description });
     });
 });
@@ -88,6 +89,10 @@ app.post("/comment", (req, res) => {
     db.addComment(req.body.comment, req.body.username, req.body.id).then(() => {
         res.json(req.body);
     });
+});
+
+app.get("*", (req, res) => {
+    res.redirect("/");
 });
 
 app.listen(8080, () => {
